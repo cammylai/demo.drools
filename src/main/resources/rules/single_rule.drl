@@ -1,0 +1,49 @@
+global com.dhl.demo.drools.model.SingleRuleRequest request;
+global com.dhl.demo.drools.model.SingleRule response;
+
+dialect "java"
+
+rule "Single Rule - Margin"
+	when
+		singleRuleRequestInstance:SingleRuleRequest(status == "MARGIN");
+	then
+		response.setStatusName("MARGIN");
+		response.setPriorityLv(1);
+		response.setDefaultText("Large reduction of Margin ~3%");
+end
+
+rule "Single Rule - NPC"
+	when
+		singleRuleRequestInstance:SingleRuleRequest(status == "NPC");
+	then
+		response.setStatusName("NPC");
+		response.setPriorityLv(2);
+		response.setDefaultText("Large reduction of NPC ~3%");
+end
+
+rule "Single Rule - Failed Deliveries"
+	when
+		singleRuleRequestInstance:SingleRuleRequest(status == "Failed Deliveries");
+	then
+		response.setStatusName("Failed Deliveries");
+		response.setPriorityLv(3);
+		response.setDefaultText("Large increase of Failed Deliveries ~5%");
+end
+
+rule "Single Rule - Fuel Discount"
+	when
+		singleRuleRequestInstance:SingleRuleRequest(status == "Fuel Discount");
+	then
+		response.setStatusName("Fuel Discount");
+		response.setPriorityLv(4);
+		response.setDefaultText("Fuel Discount too hight ~10%");
+end
+
+rule "Single Rule - Revenue Qualifier"
+	when
+		singleRuleRequestInstance:SingleRuleRequest(status == "Revenue Qualifier");
+	then
+		response.setStatusName("Revenue Qualifier");
+		response.setPriorityLv(5);
+		response.setDefaultText("Revenue Qualifier cannot be zero");
+end

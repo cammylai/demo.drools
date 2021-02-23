@@ -1,0 +1,15 @@
+import java.util.Date
+
+global com.dhl.demo.drools.model.Payment payment;
+global com.dhl.demo.drools.model.Cashier cashier;
+
+dialect "java"
+
+rule "Payment OK - Scenario 1"
+	when
+		paymentInstance:Payment(status == "COMPLETED");
+	then
+		cashier.setStatus("PAYED");
+		cashier.setProvider(paymentInstance.getProvider());
+		cashier.setPayedAt(new Date());
+end
